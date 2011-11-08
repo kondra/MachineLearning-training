@@ -14,4 +14,5 @@ function [mu_, sigma_] = parametric(X, mu, sigma)
         set(h, 'Color', 'red');
         hold off;
     end
+    legend('estimate', 'native');
 end
