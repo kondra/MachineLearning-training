@@ -2,9 +2,9 @@ function [M S W] = testEM
     n = 10000;
     p = 1/3;
     mu1 = 1;
-    mu2 = 3;
+    mu2 = 13;
     sigma1 = 1;
-    sigma2 = 4;
+    sigma2 = 5;
     f_ = @(x, mu, sigma) (1/(sqrt(2*pi)*sigma))*exp(-(x-mu).^2./(2*sigma^2));
     X1 = normrnd(mu1, sigma1, n, 1);
     X2 = normrnd(mu2, sigma2, n, 1);
@@ -13,7 +13,7 @@ function [M S W] = testEM
     x1 = X1(l);
     x2 = X2(~l);
     X = [x1; x2];
-    [M S W] = EM(X,2,[0,1],[2,3],[3/5, 2/5],0.001);
+    [M S W] = EM(X,2,[0,7],[2,3],[3/5, 2/5],0.001);
     
     clf;
     F = @(x) (p * f_(x, mu1, sigma1) + (1-p)*f_(x,mu2,sigma2));
