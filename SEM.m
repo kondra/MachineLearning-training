@@ -2,8 +2,10 @@ function [M, S, W] = SEM(X, k, M, S, W, delta)
     m = size(X, 1);
     g = zeros(m, k);
     y = zeros(m, k);
+    count = 0;
     %phi = @(x,mu,sigma) (1/(sqrt(2*pi)*sigma)*exp(-(x-mu)^2/(2*sigma^2)));
     while 1
+        count = count+1;
         %E
         g0 = g;
         for i = 1:m
@@ -13,19 +15,19 @@ function [M, S, W] = SEM(X, k, M, S, W, delta)
         end
         K = nan(k, m);
         num=ones(k,1);
-        %for i = 1:m
-        %    y(i,:)=mnrnd(1,g(i,:));
-        %    for j = 1:k
-        %        if y(i,j)==1
-        %            K(j,num(j))=X(i);
-        %            num(j)=num(j)+1;
-        %        end
-        %    end
-        %end
-        y=mnrnd(1,g);
-        X1=repmat(X,1,k);
-        K=X1(logical(y))';
-        num=sum(K)';
+        for i = 1:m
+            y(i,:)=mnrnd(1,g(i,:));
+            for j = 1:k
+                if y(i,j)==1
+                    K(j,num(j))=X(i);
+                    num(j)=num(j)+1;
+                end
+            end
+        end
+        %=mnrnd(1,g);
+        %X1=repmat(X,1,k);
+        %K=X1(logical(y))';
+        %num=sum(K)';
         %M
         %M0 = M;
         W = (1/m).*sum(g);
@@ -41,4 +43,5 @@ function [M, S, W] = SEM(X, k, M, S, W, delta)
             break;
         end
     end
+    count
 end
