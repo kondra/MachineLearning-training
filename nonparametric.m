@@ -15,7 +15,7 @@ function f = nonparametric(X, h, ker, dim, h2)
             K = @(z) (1-abs(z)).*(abs(z)<=1);
         case {'p'}
             %прямоугольное
-            K = @(z) 1/z*(abs(z)<=1);
+            K = @(z) 0.5*(abs(z)<=1);
     end
     switch dim
         case {1}
