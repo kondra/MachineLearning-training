@@ -12,12 +12,8 @@ function [M, S, W] = EM(X, k, M, S, W, delta)
             end
         end
         %M
-        %M0 = M;
-        W = (1/m).*sum(g);
-        %M = (1./(m*W)).*sum(g.*X);
-        %S = sqrt((1./(m*W))).*sum(g.*(X-M).^2);
         for j = 1:k
-            %W(j) = (1/m)*sum(g(:,j));
+            W(j) = (1/m)*sum(g(:,j));
             M(j) = (1/(m*W(j)))*sum(g(:,j).*X);
             S(j) = sqrt((1/(m*W(j)))*sum(g(:,j).*(X-M(j)).^2));
         end
