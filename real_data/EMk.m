@@ -15,7 +15,7 @@ W(1:k,1)=1/k;
 if nargin<4
     M=zeros(k,n);
     for j=1:k
-        M(j,:) = min(X) + (j-1)/k*(max(X)-min(X)) + rand;
+        M(j,:) = min(X) + (j-1)/k*(max(X)-min(X)) + rand+1;
     end
 end
 Sigma = repmat(eye(n),k,1);
@@ -33,6 +33,7 @@ while 1
             g(i,j) = g(i,j)/S;
         end
     end
+    g
 
     %M-шаг (maximization):
 
@@ -52,7 +53,7 @@ while 1
     end
 
     l=l+1;
-    if max(max(abs(g-g0))) < delta || l > 100
+    if max(max(abs(g-g0))) < delta || l > 0
         break
     end
 end
