@@ -1,4 +1,7 @@
 function A=smartTestkNN(X, f)
+%кроссвалидатор kNN, для выбора оптимального k
+%X-выборка
+%f-надо ли рисовать график
 n=3;
 maxk=20;
 A=zeros(maxk,1);
@@ -8,9 +11,13 @@ N=80000;
 for k=1:maxk
     s=0;
     fprintf('k=%d\n',k);
+    %повторяем n раз для каждого k
     for j=1:n
+        %разбиваем выборку на два случайных блока
         IDX=randperm(M);
-        [~, a] = newproc(X(IDX(1:N),:),X(IDX((N+1):end),:),k,0,'chebychev');
+        %полчаем AUC
+        [~, a] = newproc(X(IDX(1:N),:),X(IDX((N+1):end),:),k,0,'cityblock');
+        %усредняем
         s=s+a;
     end
     A(i,1)=s/n;
